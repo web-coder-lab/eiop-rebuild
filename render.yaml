@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: eiop-rebuild
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/v1/health/live
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: CLIENT_DIST
+        value: ../../web
+      - key: MAX_STREAM_STORAGE_HOURS
+        value: "6"
+      - key: DATA_DIR
+        value: /var/data
+      # Add in Render dashboard, do not commit values:
+      # SESSION_SECRET, SMTP_*, PRIVATE_API_*, FIREBASE_*, PAYMENT_*, GOOGLE_CLIENT_ID, APK_PATH
